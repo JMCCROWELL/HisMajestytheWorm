@@ -1,0 +1,445 @@
+
+
+<script type="text/javascript">	
+
+	//npcGenerator()
+	//Generates various aspects of the NPC
+	function npcGenerator(){
+
+		//Sets up lists of Race and Gender, from which Name will be determined. 	
+		var racelist = ["Dwarf","Elf","Gnome","Goblin","Halfling","Human","Orc","Troll"];
+		var genderlist = ["Female","Male"];
+
+			
+		// Random numbers are made, and used to randomly select from Race and Gender arrays.  
+		var randomNumber1 = parseInt(Math.random() * racelist.length);
+		var race = racelist[randomNumber1];			
+		var randomNumber2 = parseInt(Math.random() * genderlist.length);
+		var gender = genderlist[randomNumber2];
+
+		//Purely for testing. Keep commented out. 
+		//alert(race); 
+		//alert(gender);
+		//race = "Orc";
+		//gender = "Male";
+		
+		//Start name generation
+		if(race=="Human"){
+			humanNameGenerator(gender);
+		}
+		else if ((race=="Elf")||(race=="Gnome")){
+			//alert("fay");
+			fayNameGenerator(gender);
+		}
+		else if((race=="Dwarf")||(race=="Halfling")||(race=="Troll")){
+			//alert("Underfolk");
+			underfolkNameGenerator(gender);
+		}
+		else if((race=="Orc")||(race=="Goblin")){
+			//alert("Orcish");
+			orcNameGenerator(gender);
+		}
+		else{
+			alert("No race assigned. We got a real Sui Generis here.");
+		}
+		//End name generation
+		
+		//Display race and gender. Written seperate to keep modular.  
+		raceDisplay(race, gender);
+		
+		//Trained in suit. Major suit (strength) and minor suit (weakness)
+		trainDisplay();
+		
+		//Notable Quirk/Trait/Detail
+		quirkDisplay();
+		
+		//Reaction to the PCs
+		
+	}
+	
+	//humanNameGenerator(gender)
+	//Produces human names along with human houses. 
+	function humanNameGenerator(gender){
+	
+		if(gender=="Female"){
+			var firstname = ["Alanys", "Brenda", "Catlyn", "Colette", "Eleanor", "Janna", "Kaya", "Lanna", "Rhonda", "Saera", "Sybelle","Tanselle", "Violet", "Walda"];
+		}
+		else if (gender == "Male"){	
+			var firstname = ["Addam","Atham","Alesander","Bennard","Cuthburt","Dael","Dafyd","Edric","Gregor","Jack","Lews","Marq","Omer","Phlynne","Polliver","Reynard","Rieghn","Robin","Samwell","Velerian","Zachery"];
+		}
+		else{
+			var firstname = ["Error in Human Name Generator: No gender defined"];
+		}
+
+		//Generates House name list		
+		var housename = ["Beaufield","Blacksong","Brex","Crowell","Featherlin","Fjordless","Futtox","Gryphes","Hagboon","Heartbane","Hemlock","Ironpax","Mourn","Rosewood","Wastehedge"];
+			
+		// Random numbers are made 
+		var randomNumber1 = parseInt(Math.random() * firstname.length);
+		var randomNumber2 = parseInt(Math.random() * housename.length);
+		var name = firstname[randomNumber1] + " of House " + housename[randomNumber2];			
+			
+		//Purely for testing. Keep commented out. 
+		//alert(name); 
+			
+		//If there's already a name it is removed
+		//Really, I'm just gonna copy and paste these parts. 	
+		if(document.getElementById("nameresult")){document.getElementById("nameplaceholder").removeChild(document.getElementById("nameresult"));
+			}
+		// A div element is created to show the generated name. The Name is added as a textnode. Textnode is added to the placeholder.
+		var element = document.createElement("div");
+		element.setAttribute("id", "nameresult");
+		element.appendChild(document.createTextNode("Name: " + name));
+		document.getElementById("nameplaceholder").appendChild(element);
+	}
+	
+	//fayNameGenerator(gender)
+	//Produces fay names. Rule book says both genders use the same name, so the gender variable is unneeded. However for convention, I have kept it.
+	//Gods help me remember how to spell tylwyth. 
+	function fayNameGenerator(gender){
+		
+		//While most lists I've tried to keep alphabetical, because of the way I'm pulling these from the rule book, these are not.
+		var tylwythList = ["Adahy","Bidziil","Cha’tima","Dadgayadoh","Elsu","Fala","Honiahaka","Ituha","Kizikoni","Makya","Nahiossi","Onacona","Qaleteqa","Sakuruta","Takoda","Vaive Atoish","Waban"];
+		var vulgarisList = ["Lives-in-Woods","He-is-Strong","the Caller","Gambling-Men","Flying-Falcon","Crow","Little-Wolf","Sturdy-Oak","Burning-Fire","Eagle-Hunter","Three-Fingers","White-Owl","Warden","Coming-Sun","Friend-to-Everyone","Alights-on-the-Cloud","East-Wind"];
+	
+		// Random numbers are made. Only need one to keep the translations accurate.  
+		var randomNumber = parseInt(Math.random() * tylwythList.length);
+		var name = "Tylwyth name: " + tylwythList[randomNumber] + " or Vulgaris name: " + vulgarisList[randomNumber];
+		
+		//Purely for testing. Keep commented out. 
+		//alert(name); 
+			
+		//If there's already a name it is removed
+		//Really, I'm just gonna copy and paste these parts. 	
+		if(document.getElementById("nameresult")){document.getElementById("nameplaceholder").removeChild(document.getElementById("nameresult"));
+			}
+		// A div element is created to show the generated name. The Name is added as a textnode. Textnode is added to the placeholder.
+		var element = document.createElement("div");
+		element.setAttribute("id", "nameresult");
+		element.appendChild(document.createTextNode("Name: " + name));
+		document.getElementById("nameplaceholder").appendChild(element);
+	}	
+
+	//underfolkNameGenerator(gender)
+	//Produces underfolk names. Unlike Humans, Underfolk can spell their names correctly. 
+	function underfolkNameGenerator(gender){
+		if(gender=="Female"){
+			var firstname = ["Alice","Bonnie","Dee","Edith","Helen","Liza","Maggie","Molly","Pansy","Rose","Ruth"];
+		}
+		else if (gender == "Male"){	
+			var firstname = ["Angus","Bill","Geoff","Graham","Jack","Robin","Ted","Tom","Warwick","Wesley","Will"];
+		}
+		else{
+			var firstname = ["Error in Underfolk Name Generator: No gender defined"];
+		}	
+		
+		//Generates Guild name list		
+		var guildname = ["Bellowsmender", "Blacksmith", "Brewer", "Carpenter", "Chandler", "Cooper", "Joiner", "Miner", "Runescrivner", "Sculptor", "Stonemason", "Tailor", "Tinker", "Vintner", "Wainwright", "Weaver","Whitesmith"];
+			
+		// Random numbers are made 
+		var randomNumber1 = parseInt(Math.random() * firstname.length);
+		var randomNumber2 = parseInt(Math.random() * guildname.length);
+		var name = firstname[randomNumber1] + " of the " + guildname[randomNumber2] + "'s guild.";			
+			
+		//Purely for testing. Keep commented out. 
+		//alert(name); 
+			
+		//If there's already a name it is removed
+		//Really, I'm just gonna copy and paste these parts. 	
+		if(document.getElementById("nameresult")){document.getElementById("nameplaceholder").removeChild(document.getElementById("nameresult"));
+			}
+		// A div element is created to show the generated name. The Name is added as a textnode. Textnode is added to the placeholder.
+		var element = document.createElement("div");
+		element.setAttribute("id", "nameresult");
+		element.appendChild(document.createTextNode("Name: " + name));
+		document.getElementById("nameplaceholder").appendChild(element);
+	}
+	
+	//orcNameGenerator(gender)
+	//Generates Orc and Goblin names. Oh god the names. 
+	function orcNameGenerator(gender){
+	
+		//Making this outside as we'll need it later.
+		var femaleList = ["Ælflaen", "Burhred", "Caewen", "Darya", "Eahild", "Gunhild", "Gwillowen", "Hereswith", "Inga","Izolda", "Lubov", "Marta", "Olgar", "Raenburh", "Svetar", "Tatyana", "Ulyana", "Vera", "Walburga", "Zlata"]; 
+		var maleList = ["Ælfric", "Bassa", "Boris", "Caedwalla","Dernhelm", "Gyrth", "Kiril", "Harthold", "Ine", "Igor", "Ivan","Lofwine", "Mordar", "Offa", "Peragur", "Sabor", "Svein", "Thorgils", "Tostig", "Ulf", "Vlad", "Wulnoth", "Yuri"];
+		var clanList = ["Earthblood", "Fireblood","Seablood", "Stormblood"];
+		var randomNumber1 = parseInt(Math.random() * femaleList.length);
+		var randomNumber2 = parseInt(Math.random() * femaleList.length);
+		var randomNumber3 = parseInt(Math.random() * clanList.length);
+				
+		if(gender=="Female"){
+			var firstname = femaleList[randomNumber1];
+			var suffix = "daughter";
+		}
+		else if(gender =="Male"){
+			var firstname = maleList[randomNumber1];
+			var suffix = "son";
+		}
+		else{
+			var firstname = "Error in Orc Name";
+			var suffix = "Gender not defined.";
+		}
+		
+		var lastname = femaleList[randomNumber2] + suffix;
+		var name = firstname + " " + lastname + " of Clan " + clanList[randomNumber3];
+		
+		//Purely for testing. Keep commented out. 
+		//alert(name); 
+			
+		//If there's already a name it is removed
+		//Really, I'm just gonna copy and paste these parts. 	
+		if(document.getElementById("nameresult")){document.getElementById("nameplaceholder").removeChild(document.getElementById("nameresult"));
+			}
+		// A div element is created to show the generated name. The Name is added as a textnode. Textnode is added to the placeholder.
+		var element = document.createElement("div");
+		element.setAttribute("id", "nameresult");
+		element.appendChild(document.createTextNode("Name: " + name));
+		document.getElementById("nameplaceholder").appendChild(element);
+	}		
+	
+	//printEpithet()
+	//Prints out a fancy title. 
+	function printEpithet(){
+		
+		var epithetList = [ "the Bloodied", 
+							"the Crusher", 
+							"War Tooth",
+							"the Generous",
+							"Underfoot",
+							"Hart-Footed",
+							"Witch-Breaker",
+							"Horse Lord",
+							"the Wisest",
+							"Grim Face",
+							"Horse Hung",
+							"Little Bear",
+							"the Fair",
+							"the Crow",
+							"the Amorous",
+							"the Frantic",
+							"the Old",
+							"the Stout",
+							"Deep Drinker",
+							"the Swarthy",
+							"Battle-wise",
+							"the Learned",
+							"Deep Delver",
+							"the Champion",
+							"the Giant",
+							"Far-traveling",
+							"Longshanks",
+							"the Small",
+							"Silvertongue",
+							"Stormcrow",
+							"Billygoat",
+							"the Leech",
+							"Star-eyed",
+							"Longbeard",
+							"the Wild",
+							"Bee Friend",
+							"the Burned",
+							"the Subtle",
+							"the Clever",
+							"the Young",
+							"Gold-friend",
+							"Grave Robber",
+							"Half-troll",
+							"the Gray",
+							"the Judge",
+							"Bee Stung",
+							"the Dreamer",
+							"Thick-skulled",
+							"the Hound",
+							"He-Man",
+							"Iron-side",
+							"Moon Jumper",
+							"the Quiet",
+							"the Gentle",
+							"the Unborn",
+							"Fox-bearded",
+							"the Red",
+							"Bald Pate",
+							"the Exile",
+							"Sword-splitter",
+							"the Bright",
+							"Far-seer",
+							"the Proud",
+							"the Fortunate",
+							"the Honest",
+							"the Fair",
+							"the Unbowed",
+							"the Leaper",
+							"the Pious",
+							"the Lecherous", 
+							"the Stingy"];
+		var randomNumber = parseInt(Math.random() * epithetList.length);
+		var epithet = epithetList[randomNumber];
+		
+		//Purely for testing. Keep commented out. 
+		//alert(epithet); 
+			
+		//If there's already a name it is removed
+		//Really, I'm just gonna copy and paste these parts. 	
+		if(document.getElementById("epithetresult")){document.getElementById("epithetplaceholder").removeChild(document.getElementById("epithetresult"));
+			}
+		// A div element is created to show the generated name. The Name is added as a textnode. Textnode is added to the placeholder.
+		var element = document.createElement("div");
+		element.setAttribute("id", "epithetresult");
+		element.appendChild(document.createTextNode("Epithet: " + epithet));
+		document.getElementById("epithetplaceholder").appendChild(element);
+	}
+	
+	//raceDisplay(race, gender)
+	//Displays the race and gender. Made seperate to keep modular. 
+	function raceDisplay(race, gender){
+		
+		//Displaying race/gender description
+		//If there's already one it is removed
+		//Really, I'm just gonna copy and paste these parts. 	
+		if(document.getElementById("raceresult")){document.getElementById("raceplaceholder").removeChild(document.getElementById("raceresult"));
+			}
+		// A div element is created to show the generated name. The Name is added as a textnode. Textnode is added to the placeholder.
+		var element = document.createElement("div");
+		element.setAttribute("id", "raceresult");
+		element.appendChild(document.createTextNode("A " + gender + " " + race));
+		document.getElementById("raceplaceholder").appendChild(element);
+	}
+	
+	//trainDisplay()
+	//Displays the major and minor cards suit. 
+	function trainDisplay(){
+	
+		var cardList = ["Pentacles", "Swords", "Cups", "Wands"];
+		
+		var randomNumber1 = parseInt(Math.random() * cardList.length);
+		var randomNumber2 = parseInt(Math.random() * cardList.length);
+		
+		//Makes sure the two numbers aren't the same
+		while(randomNumber1 == randomNumber2){
+			randomNumber2 = parseInt(Math.random() * cardList.length);
+		}
+	
+		var majorSuit = cardList[randomNumber1];
+		var minorSuit = cardList[randomNumber2];
+	
+		//Purely for testing. Keep commented out. 
+		//alert(majorSuit); 
+			
+		//If there's already a card it is removed
+		//Really, I'm just gonna copy and paste these parts. 	
+		if(document.getElementById("trainresult")){document.getElementById("trainplaceholder").removeChild(document.getElementById("trainresult"));
+			}
+		// A div element is created to show the generated name. The Name is added as a textnode. Textnode is added to the placeholder.
+		var element = document.createElement("div");
+		element.setAttribute("id", "trainresult");
+		element.appendChild(document.createTextNode("Major Suit: " + majorSuit + " -- Minor Suit: " + minorSuit));
+		document.getElementById("trainplaceholder").appendChild(element);
+	}
+	
+	//quirkDisplay();
+	//Displays a notable quirk/trait/detail
+	function quirkDisplay(){
+		
+		var quirkList=[ "Is literally three imps in a gambeson with a bucket for a helm.",
+						"Missing a limb",
+						"Missing an eye",
+						"Wears furs and sackcloth",
+						"Is an albino",
+						"Is a melano",
+						"Has strange eyes that have seen beyond the Wall of Sleep",
+						"Carries a magical mutation: third eye, prehensile tail, or the like",
+						"Has a hook for a hand",
+						"Is sprouting mushrooms",
+						"Covered in burn scars",
+						"Completedly obscured by a deep hood",
+						"Is actually a ghost",
+						"Has a crow perched on their shoulder",
+						"Is covered in tattoos",
+						"Has a snake looped through their ear gauges",
+						"Is androgenous",
+						"Has (purely ornamental) wings strapped to their back",
+						"Smokes a long pipe",
+						"Has a goiter on their neck",
+						"Is leprous",
+						"Stinks of death",
+						"Is so outrageously fat, they must be carried by a team of goblins",
+						"Is thin and emaciated",
+						"Looks like they haven't slept in years",
+						"Is toothless",
+						"Has a mouth full of metal teeth",
+						"Has teeth scriven with runes",
+						"Has a harelip",
+						"Is dressed, but not presenting, as a member of the opposite sex",
+						"Looks exactly like a PC (despite race)",
+						"Sweats constantly"];
+		var randomNumber = parseInt(Math.random() * quirkList.length);
+		var quirk = quirkList[randomNumber];
+
+		//Purely for testing. Keep commented out. 
+		//alert(quirk); 
+			
+		//If there's already a card it is removed
+		//Really, I'm just gonna copy and paste these parts. 	
+		if(document.getElementById("quirkresult")){document.getElementById("quirkplaceholder").removeChild(document.getElementById("quirkresult"));
+			}
+		// A div element is created to show the generated name. The Name is added as a textnode. Textnode is added to the placeholder.
+		var element = document.createElement("div");
+		element.setAttribute("id", "quirkresult");
+		element.appendChild(document.createTextNode("What's so special about them?: " + quirk));
+		document.getElementById("quirkplaceholder").appendChild(element);		
+	}	
+	
+	
+	
+	
+</script>
+<br />
+<!--This is the Go Button -->
+<div class="middleinput">
+<input onclick="npcGenerator()" type="button" value="Draw a Card" /></div>
+
+<div id="nameplaceholder">
+<div id="nameresult">
+Who shall appear in the well?
+</div>
+</div>
+<br />
+<div id="raceplaceholder">
+<div id="raceresult">
+</div>
+</div>
+<br />
+<div id="trainplaceholder">
+<div id="trainresult">
+</div>
+</div>
+<br />
+<div id="quirkplaceholder">
+<div id="quirkresult">
+</div>
+</div>
+<br />
+
+<div class="lowinput">
+<input onclick="printEpithet()" type="button" value="Need an epithet?" /></div>
+
+<div id="epithetplaceholder">
+<div id="epithetresult">
+</div>
+</div>
+
+
+<!--
+<div class="npccategories">
+<span class="npccategory">Race:</span>
+<span class="npccategory">Gender:</span>
+</div>
+<div class="npcresults">
+<div id="npcraceplaceholder">
+<div id="npcraceresult">
+</div>
+</div>
+<div id="npcgenderplaceholder">
+<div id="npcgenderresult">
+</div>
+--> 
